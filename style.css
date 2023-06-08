@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 600;
+    color: #fff;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+}
+
+.bottom-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100px;
+}
+
+.input-container {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    border: none;
+    padding: 1em;
+    border-radius: .5em;
+    box-shadow: 0 20px 30px -10px rgb(38, 55, 77);
+}
+
+#submit-icon {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.images-section {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.image-container {
+    width: 50%;
+    border-radius: .5em;
+    overflow: hidden;
+    box-shadow: 0 20px 30px -10px rgb(38, 55, 77);
+}
+
+.image-container img {
+    width: 100%;
+}

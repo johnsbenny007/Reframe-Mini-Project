@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Text to Audio Converter</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/voicesearch/dist/voicesearch.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+<body>
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">Text to Audio Converter</h1>
+		<div class="form-group">
+			<label for="text">Enter Text:</label>
+			<input type="text" class="form-control" id="text" placeholder="Type your text here...">
+		</div>
+		<div class="form-group">
+			<label for="language">Select Language:</label>
+			<select class="form-control" id="language">
+				<option value="en-us">English (US)</option>
+				<option value="en-gb">English (UK)</option>
+				<option value="fr-fr">French</option>
+				<option value="es-es">Spanish</option>
+				<option value="it-it">Italian</option>
+				<option value="de-de">German</option>
+				<option value="ru-ru">Russian</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="audio">Audio:</label>
+			<audio id="audio" controls></audio>
+		</div>
+		<button class="btn btn-primary btn-block" onclick="convertTextToSpeech()">Convert Text to Speech</button>
+		<a href="sta.html">Speech to text</a>
+	</div>
+	<script>
+		function convertTextToSpeech() {
+			const text = document.getElementById('text').value;
+			const language = document.getElementById('language').value;
+			const apiKey = 'bb96dfdfced4448b94199e834ed23d7c'; // Replace with your VoiceRSS API key
+			const apiUrl = `https://api.voicerss.org/?key=${apiKey}&hl=${language}&src=${text}`;
+			axios.get(apiUrl, { responseType: 'blob' })
+			.then((response) => {
+				const blob = new Blob([response.data], { type: 'audio/mp3' });
+				const audioUrl = URL.createObjectURL(blob);
+				const audio = document.getElementById('audio');
+				audio.src = audioUrl;
+				Swal.fire({
+					icon: 'success',
+					title: 'Success!',
+					text: 'Audio file has been generated.',
+					footer: '<a href="#" onclick="downloadAudio()">Download Audio</a>'
+				});
+			})
+			.catch((error) => {
+				console.error(error);
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'Something went wrong!',
+				});
+			});
+		}
+		function downloadAudio() {
+			const audio = document.getElementById('audio');
+			const audioUrl = audio.src;
+			const a = document.createElement('a');
+			a.href = audioUrl;
+			a.download = 'audio.mp3';
+			a.click();
+		}
+	</script>
+</body>
+</html>
